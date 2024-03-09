@@ -102,6 +102,20 @@ ol.listed a:hover:after {
     transition: all 0.3s ease-out;
 }
 
-.users-data {
+.userDetailsContainer {
+    display: flex;
+    justify-content: flex-start;
+    /* position: relative; */
+    /* width: 20rem; */
+    /* left: 20rem; */
+    /* bottom: 20rem; */
+}
+.usersDetails {
+    position: absolute;
     font-size: 10px;
+}
+
+.actionComponentContainer {
+    position: relative;
+    top: 10rem;
 }

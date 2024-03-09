@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import "./styles/TransferFunds.style.css";
+
 const TransferFunds = ({ selectedUser, users, setCurrentAction }) => {
     const [transferAmount, setTransferAmount] = useState(0);
     const [showConfirmation, setShowConfirmation] = useState(false);
@@ -32,7 +34,7 @@ const TransferFunds = ({ selectedUser, users, setCurrentAction }) => {
         <>
             {showConfirmation ? (
                 <div>
-                    <h3>Confirm Transfer:</h3>
+                    <h3>Confirm</h3>
                     <p>
                         Transfer $ {transferAmount} from{" "}
                         {selectedUser.firstName} {selectedUser.lastName} to{" "}
@@ -49,14 +51,14 @@ const TransferFunds = ({ selectedUser, users, setCurrentAction }) => {
                     <button onClick={handleTransferCancel}>Cancel</button>
                 </div>
             ) : (
-                <div>
-                    <h3>Enter transfer amount:</h3>
+                <div className="transfer-container">
                     <input
                         type="number"
                         min="0"
+                        placeholder="Amount"
                         onChange={handleTransferAmount}
                     />
-                    <h3>Select target user to transfer funds to:</h3>
+                    <h3>Transfer to</h3>
                     <ol className="listed">
                         {users
                             .filter((user) => user._id !== selectedUser._id)

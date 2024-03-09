@@ -1,6 +1,6 @@
 .create-new-user-container {
     display: flex;
-    margin-top: 13rem;
+    margin-top: 0;
     flex-direction: column;
     align-items: center;
     border-color: white;
