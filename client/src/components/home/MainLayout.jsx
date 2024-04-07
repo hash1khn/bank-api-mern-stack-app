@@ -1,121 +1,43 @@
-import React, { useState } from "react";
-import {
-    UserAddOutlined,
-    UserOutlined,
-    UserSwitchOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
-import CreateNewUser from "../CreateNewUser";
-import Sidebar from "../Sidebar";
-import useSidebarState from "../../hooks/useSidebarState";
+import React from "react";
+import { Layout } from "antd";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import NavBar from "../../components/Navbar";
+import Home from "../../components/Home";
+import CreateNewUser from "../../components/CreateNewUser";
+import Deposit from "../../components/Deposit";
+import Withdraw from "../../components/Withdraw";
+//import Login from "../../components/Login";
+import UserDetails from "../../components/UserDetails";
+//import Balance from "../../components/Balance";
+const { Header, Content, Footer } = Layout;
 
-import "../../App.css";
-
-const { Header, Content, Footer, Sider } = Layout;
-
-const MainLayout = () => {
-    const [showForm, setShowForm] = useState(false);
-    const [creationConfirmed, setCreationConfirmed] = useState(false);
-
-    const [showUsers, setShowUsers] = useState(false);
-
-    const { setSelectedUser, setCurrentAction } = useSidebarState();
-
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
-
-    const items = [
-        {
-            key: "1",
-            icon: <UserSwitchOutlined />,
-            label: "Users",
-            onClick: () => {
-                setShowForm(false);
-                setShowUsers(true);
-                setCreationConfirmed(false);
-                setSelectedUser(null);
-                setCurrentAction("");
-            },
-        },
-
-        {
-            key: "3",
-            icon: <UserAddOutlined />,
-            label: "Create User",
-            onClick: () => {
-                setShowUsers(false);
-                setShowForm(true);
-                setCreationConfirmed(false);
-            },
-        },
-    ];
-
+const App = () => {
     return (
-        <Layout>
-            <Sider
-                breakpoint="lg"
-                collapsedWidth="0"
-                onBreakpoint={(broken) => {
-                    console.log(broken);
-                }}
-                onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
-                }}
-            >
-                <div className="demo-logo-vertical" />
-                <Menu
-                    theme="dark"
-                    mode="inline"
-                    defaultSelectedKeys={["4"]}
-                    items={items}
-                />
-            </Sider>
+        <Router>
             <Layout>
-                <Header
-                    style={{
-                        padding: 0,
-                        background: colorBgContainer,
-                    }}
-                />
-                <Content
-                    style={{
-                        margin: "24px 16px 0",
-                    }}
-                >
-                    <div
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: colorBgContainer,
-                            borderRadius: borderRadiusLG,
-                        }}
-                    >
-                        {showForm && (
-                            <CreateNewUser
-                                creationConfirmed={creationConfirmed}
-                                setCreationConfirmed={setCreationConfirmed}
-                            />
-                        )}
-                        {showUsers && (
-                            <div className="bank">
-                                <Sidebar
-                                    showUsersList={showUsers}
-                                    setShowUsersList={setShowUsers}
-                                />
-                            </div>
-                        )}
+                <Header>
+                    <NavBar />
+                </Header>
+                <Content>
+                    <div className="site-layout-content">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/account" element={<CreateNewUser />} />
+                            <Route path="/deposit" element={<Deposit />} />
+                            <Route path="/withdraw" element={<Withdraw />} />
+                            <Route path="/balance" element={<Balance />} />
+                            <Route path="/userdata" element={<UserDetails />} />
+                        </Routes>
                     </div>
                 </Content>
-                <Footer
-                    style={{
-                        textAlign: "center",
-                    }}
-                >
+                <Footer style={{ textAlign: "center" }}>
                     {/* Ant Design ©{new Date().getFullYear()} Created by Ant UED */}
                 </Footer>
             </Layout>
-        </Layout>
+            <ToastContainer />
+        </Router>
     );
 };
-export default MainLayout;
+
+export default App;
